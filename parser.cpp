@@ -151,7 +151,12 @@ JsonNumber *Parser::jNum() {
 	//atof(str);
 	string str;
 	char c = stream_->get();
-	while( isdigit(c) || c == '-' || c == 'e' || c == 'E' || c == '+' ) {
+	while( isdigit(c) 
+				|| c == '-' 
+				|| c == 'e' 
+				|| c == 'E' 
+				|| c == '+' 
+				|| c == '.') {
 		str.push_back(c);
 		c = stream_->get();
 	}
