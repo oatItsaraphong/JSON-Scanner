@@ -151,7 +151,12 @@ JsonNumber *Parser::jNum() {
 	//atof(str);
 	string str;
 	char c = stream_->get();
-	while( isdigit(c) || c == '-' || c == 'e' || c == 'E' || c == '+' || c == '.') {
+	while( isdigit(c) 
+				|| c == '-' 
+				|| c == 'e' 
+				|| c == 'E' 
+				|| c == '+' 
+				|| c == '.') {
 		str.push_back(c);
 		c = stream_->get();
 	}
@@ -243,6 +248,17 @@ JsonValue *Parser::jVal() {
 }
 //needs to be fixed
 void Parser::parseError(const string &message) {
-	cout << message << " at Line: " << m_line << endl;
-	throw ParseError(message);
+	//cout << message << " at Line: " << m_line << endl;
+	string newMess = message;
+	newMess.append("  - at Line: ");
+	newMess.append(to_string(m_line));
+	//newMess.push_back
+	try{
+		throw ParseError(newMess);
+	}
+	catch(ParseError& k)
+	{
+		cout << k.err() << endl;
+	}
+	
 }

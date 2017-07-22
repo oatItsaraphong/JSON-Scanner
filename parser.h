@@ -32,7 +32,7 @@ public:
 
 private:
 	ifstream *		stream_;
-	int 			m_line = 0;
+	int 			m_line = 1;
 	
 	void 			skipspace();
 	char 			readChar();
