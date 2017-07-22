@@ -1,0 +1,14 @@
+{
+    "str": "foo",
+    "num": 123,
+    
+    "series" :{
+        "name" : "West World",
+        "genre" : ["Sci-fi", "Action", "Mystery"],
+        "eposide": 10,
+        "ended" : false
+    },
+    "bool": true,
+    "nul": null,
+    "arr": [ "bar", 456, false ]
+}

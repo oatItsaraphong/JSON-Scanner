@@ -1,0 +1,7 @@
+{
+    "str": "foo",
+    "num": 123,
+    "bool": true,
+    "nul": null,
+    "arr": [ "bar", 456, false ]
+}
