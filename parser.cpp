@@ -71,7 +71,8 @@ void Parser::jMembers(JsonObject *o) {
 	string str = jStr();
 	//string and value should be separated by :
 	if ((c = readChar()) != ':') {
-		errorMessage = "Expected ':' but got " + c;
+		errorMessage = "Expected ':' but got ";
+		errorMessage.push_back(c);
 		parseError(errorMessage);
 	} 
 	//jVal(str, *o);
@@ -240,7 +241,9 @@ JsonValue *Parser::jVal() {
 			ret = new JsonNull();
 			break;
 		default:
-			errorMessage = "Expected JSON Value but got " + c;
+			string errorMessage = "Expected JSON Value but got ";
+			errorMessage.push_back(c);
+
 			parseError(errorMessage);
 			break;
 	}
