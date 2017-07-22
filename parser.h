@@ -33,6 +33,7 @@ public:
 private:
 	ifstream *		stream_;
 	int 			m_line = 1;
+	string 			errorMessage;
 	
 	void 			skipspace();
 	char 			readChar();

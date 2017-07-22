@@ -17,7 +17,7 @@ void Parser::skipspace() {
 	while(isspace(c = stream_->get())) {
 		//do nothing
 		if(c == '\n'){
-		m_line++;
+			m_line++;
 		}
 		
 	}
@@ -39,7 +39,7 @@ JsonObject *Parser::jObj() {
 	skipspace();
 	char c;
 	if ((c = readChar()) != '{') {
-		string errorMessage = "Expected '{' but got ";
+		errorMessage = "Expected '{' but got ";
 		errorMessage.push_back(c);
 		parseError(errorMessage);
 	}
@@ -54,7 +54,7 @@ JsonObject *Parser::jObj() {
 		stream_->unget();
 		
 		if ((c = readChar()) != '}') {
-			string errorMessage = "Expected '}' but got ";
+			errorMessage = "Expected '}' but got ";
 			errorMessage.push_back(c);
 			parseError(errorMessage);
 		}
@@ -71,7 +71,7 @@ void Parser::jMembers(JsonObject *o) {
 	string str = jStr();
 	//string and value should be separated by :
 	if ((c = readChar()) != ':') {
-		string errorMessage = "Expected ':' but got " + c;
+		errorMessage = "Expected ':' but got " + c;
 		parseError(errorMessage);
 	} 
 	//jVal(str, *o);
@@ -87,7 +87,7 @@ JsonArray *Parser::jArr() {
 	skipspace();
 	char c;
 	if ((c = readChar()) != '[') {
-		string errorMessage = "Expected '[' but got ";
+		errorMessage = "Expected '[' but got ";
 		errorMessage.push_back(c);
 		parseError(errorMessage);
 	}
@@ -101,7 +101,7 @@ JsonArray *Parser::jArr() {
 		jElements(a);
 		stream_->unget();
 		if ((c = readChar()) != ']') {
-			string errorMessage = "Expected ']' but got ";
+			errorMessage = "Expected ']' but got ";
 			errorMessage.push_back(c);
 			parseError(errorMessage);
 		}
@@ -126,18 +126,18 @@ string Parser::jStr() {
 	char c;
 	//string should be enclosed in quotes
 	if ((c = stream_->get()) != '"') {
-		string errorMessage = "Expected '\"' but got ";
+		errorMessage = "Expected '\"' but got ";
 		errorMessage.push_back(c);
 		parseError(errorMessage);
 	}
 	//read string until end quote
 	while((c = stream_->get()) != '"') {
 		if (c == '\\') {
-			string errorMessage = "String cannot contain control characters.";
+			errorMessage = "String cannot contain control characters.";
 			parseError(errorMessage);
 		}
 		else if(c == '\n'){
-			string errorMessage = "String need to be terminated";
+			errorMessage = "String need to be terminated";
 			parseError(errorMessage);
 		}
 		str.push_back(c);
@@ -164,7 +164,7 @@ JsonNumber *Parser::jNum() {
 	errno = 0;
 	double dbl = atof(str.c_str());
 	if (errno) {
-		string errorMessage = "Expected JSON Number but got " + str;
+		errorMessage = "Expected JSON Number but got " + str;
 		parseError(errorMessage);
 	}
 	return new JsonNumber(dbl);
@@ -210,7 +210,7 @@ JsonValue *Parser::jVal() {
 				tr.push_back(c);
 			}
 			if (tr != "true") {
-				string errorMessage = "Expected 'true' but got " + tr;
+				errorMessage = "Expected 'true' but got " + tr;
 				parseError(errorMessage);
 			}
 			ret = new JsonBoolean(true);
@@ -222,7 +222,7 @@ JsonValue *Parser::jVal() {
 				fa.push_back(c);
 			}
 			if (fa != "false") {
-				string errorMessage = "Expected 'false' but got " + fa;
+				errorMessage = "Expected 'false' but got " + fa;
 				parseError(errorMessage);
 			}
 			ret = new JsonBoolean(false);
@@ -234,13 +234,13 @@ JsonValue *Parser::jVal() {
 				nu.push_back(c);
 			}
 			if (nu != "null") {
-				string errorMessage = "Expected 'null' but got " + nu;
+				errorMessage = "Expected 'null' but got " + nu;
 				parseError(errorMessage);
 			}
 			ret = new JsonNull();
 			break;
 		default:
-			string errorMessage = "Expected JSON Value but got " + c;
+			errorMessage = "Expected JSON Value but got " + c;
 			parseError(errorMessage);
 			break;
 	}
@@ -260,5 +260,5 @@ void Parser::parseError(const string &message) {
 	{
 		cout << k.err() << endl;
 	}
-	
+	errorMessage.clear();
 }
