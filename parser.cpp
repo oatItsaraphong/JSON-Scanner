@@ -262,6 +262,7 @@ void Parser::parseError(const string &message) {
 	catch(ParseError& k)
 	{
 		cout << k.err() << endl;
+		exit(1);
 	}
 	errorMessage.clear();
 }
